@@ -12,6 +12,8 @@
 		AB394E402239090F00811112 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB394E3E2239090F00811112 /* Main.storyboard */; };
 		AB394E422239091000811112 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB394E412239091000811112 /* Assets.xcassets */; };
 		AB394E452239091000811112 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB394E432239091000811112 /* LaunchScreen.storyboard */; };
+		AB394E5422392D0C00811112 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB394E5322392D0C00811112 /* SettingViewController.swift */; };
+		AB394E5622395A9B00811112 /* MasterMindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB394E5522395A9B00811112 /* MasterMindModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		AB394E412239091000811112 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB394E442239091000811112 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB394E462239091000811112 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB394E5322392D0C00811112 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		AB394E5522395A9B00811112 /* MasterMindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterMindModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,32 @@
 		AB394E392239090F00811112 /* Mastermind */ = {
 			isa = PBXGroup;
 			children = (
-				AB394E3A2239090F00811112 /* AppDelegate.swift */,
-				AB394E3C2239090F00811112 /* ViewController.swift */,
+				AB57B30C223EBB0D0022F147 /* Controllers */,
 				AB394E3E2239090F00811112 /* Main.storyboard */,
-				AB394E412239091000811112 /* Assets.xcassets */,
-				AB394E432239091000811112 /* LaunchScreen.storyboard */,
+				AB394E5522395A9B00811112 /* MasterMindModel.swift */,
+				AB394E4C2239099300811112 /* Supporting Files */,
 				AB394E462239091000811112 /* Info.plist */,
 			);
 			path = Mastermind;
+			sourceTree = "<group>";
+		};
+		AB394E4C2239099300811112 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB394E3A2239090F00811112 /* AppDelegate.swift */,
+				AB394E412239091000811112 /* Assets.xcassets */,
+				AB394E432239091000811112 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB57B30C223EBB0D0022F147 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AB394E3C2239090F00811112 /* ViewController.swift */,
+				AB394E5322392D0C00811112 /* SettingViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +158,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB394E3D2239090F00811112 /* ViewController.swift in Sources */,
+				AB394E5622395A9B00811112 /* MasterMindModel.swift in Sources */,
 				AB394E3B2239090F00811112 /* AppDelegate.swift in Sources */,
+				AB394E5422392D0C00811112 /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
