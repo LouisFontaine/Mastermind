@@ -17,64 +17,61 @@ class ViewController: UIViewController {
     @IBOutlet var Cells: [UIImageView]!
     @IBOutlet var ColorsLabels: [UILabel]!
     @IBOutlet var PlacesLabels: [UILabel]!
+    
     private var myTimer: Timer?
     
+    // Function used when a user press a color to fill a line
     @IBAction func pressColorButton(_ sender: UIButton) {
         game.setCellColor(buttonColor: sender.accessibilityLabel!)
         updateViewFromModel()
     }
     
+    // Function used when a user "erase" button to erase a color in the line
     @IBAction func pressEraseButton(_ sender: UIButton) {
         game.erase()
         updateViewFromModel()
     }
     
+    /* Function used when "evaluate" button to evaluate a line, show how
+    many good color and places there are on a line */
     @IBAction func pressEvaluateButton(_ sender: UIButton) {
+        var message: String
+        
+        // Use model function to evaluate the line
         game.evaluate()
+        
+        // Updtate de view
         updateViewFromModel()
         
-        // If the game is won
-        if game.gamingState == gameState.WON {
-            if game.gamingMode == gameMode.PRO {
-                self.myTimer?.invalidate()
-            }
-            let alert = UIAlertController(title: "Game finished", message: "You won the game !", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Go to game settings", style: .default, handler: {
-                action in self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)
-            }))
-            self.present(alert, animated: true)
-        }
+        // if the game is finished
+        if game.gamingState == gameState.WON || game.gamingState == gameState.LOST {
+            if game.gamingState == gameState.WON { message = "You won the game !" }
+            else { message =  "You loose the game" }
             
-        // Else, if the game is lost
-        else if game.gamingState == gameState.LOST {
+            // invalidate the timer if game is in Pro mode
             if game.gamingMode == gameMode.PRO {
                 self.myTimer?.invalidate()
             }
-            let alert = UIAlertController(title: "Game finished", message: "You lost the game !", preferredStyle: .alert)
+            
+            // Alert the user either if he won or loose the game and redirect to setting view
+            let alert = UIAlertController(title: "Game finished", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Go to game settings", style: .default, handler: {
-                action in self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)
-            }))
+                action in self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)}))
             self.present(alert, animated: true)
         }
     }
     
+    // Function used if the user press 'Settings" button
     @IBAction func pressSettingButton(_ sender: UIButton) {
         
-        //////////
-        //let GameManagere = GameManager()
-        //GameManagere.saveGameManager()
-        /////////
-        
+        // Alert the user that he will loose the game if he goes to setting view
         let refreshAlert = UIAlertController(title: "Go to Setting", message: "You will loose the current game", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            game.addALoose()
-            self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)
-        }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in game.addALoose(); self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)}))
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in}))
         self.present(refreshAlert, animated: true, completion: nil)
     }
     
+    // Function used to update the view depending on model
     func updateViewFromModel() {
         WinsLabel.text = String(game.wins)
         FailsLabel.text = String(game.looses)
@@ -100,6 +97,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Fuction used by updateViewFromModel() to return an image depending of the location on the board
     func returnImageCellFromModel(Label: Int) -> UIImage {
         if game.board[Label] == color.PURPLE {
             return UIImage(named: "buttonPurple.png")!
@@ -124,6 +122,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Function used when the view is launched
     override func viewDidLoad() {
         super.viewDidLoad()
         // If game mode is Pro when the game start, we need to start a timer
@@ -133,33 +132,34 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
+    // Fuction used by the timer to decremente the tiler
     @objc func clock_1() {
+        //decrease timer on model
         game.decreaseTimer()
+        
+        // Update the view with the changes
         updateViewFromModel()
         
-        // If the game is won
-        if game.gamingState == gameState.WON {
-            if game.gamingMode == gameMode.PRO {
-                self.myTimer?.invalidate()
-            }
-            let alert = UIAlertController(title: "Game finished", message: "You won the game !", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Go to game settings", style: .default, handler: {
-                action in self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)
-            }))
-            self.present(alert, animated: true)
-        }
+        // Check game state of the model
+        // if the game is finished
+        if game.gamingState == gameState.WON || game.gamingState == gameState.LOST {
+            var message: String
+            // invalidate timer
+            self.myTimer?.invalidate()
             
-        // Else, if the game is lost
-        else if game.gamingState == gameState.LOST {
+            if game.gamingState == gameState.WON { message = "You won the game !" }
+            else { message =  "You loose the game" }
+            
+            // invalidate the timer if game is in Pro mode
             if game.gamingMode == gameMode.PRO {
                 self.myTimer?.invalidate()
             }
-            let alert = UIAlertController(title: "Game finished", message: "You lost the game !", preferredStyle: .alert)
+            
+            // Alert the user either if he won or loose the game and redirect to setting view
+            let alert = UIAlertController(title: "Game finished", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Go to game settings", style: .default, handler: {
-                action in self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)
-            }))
+                action in self.performSegue(withIdentifier: "goToSettingPageSegue", sender: self)}))
             self.present(alert, animated: true)
         }
     }
 }
-

@@ -644,12 +644,35 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EpY-0o-WYB">
+                                <rect key="frame" x="15" y="591" width="384" height="256"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Y5D-WE-OEx">
+                                        <rect key="frame" x="0.0" y="28" width="384" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y5D-WE-OEx" id="2wb-0m-cHy">
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="JvV-tv-GDH" id="PAv-gy-j7z"/>
+                                    <outlet property="delegate" destination="JvV-tv-GDH" id="k33-9f-hCg"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OTz-l5-yNe" firstAttribute="trailing" secondItem="1Dc-HY-tkD" secondAttribute="trailing" constant="80" id="4Kq-Wg-k5s"/>
                             <constraint firstItem="OTz-l5-yNe" firstAttribute="bottom" secondItem="1Dc-HY-tkD" secondAttribute="bottom" constant="286" id="EL6-gh-k5d"/>
+                            <constraint firstItem="EpY-0o-WYB" firstAttribute="top" secondItem="1Dc-HY-tkD" secondAttribute="bottom" constant="15" id="HYK-UU-a6g"/>
+                            <constraint firstItem="OTz-l5-yNe" firstAttribute="trailing" secondItem="EpY-0o-WYB" secondAttribute="trailing" constant="15" id="Zpw-ZW-iKa"/>
+                            <constraint firstItem="OTz-l5-yNe" firstAttribute="bottom" secondItem="EpY-0o-WYB" secondAttribute="bottom" constant="15" id="kG0-Rq-N8P"/>
                             <constraint firstItem="1Dc-HY-tkD" firstAttribute="top" secondItem="OTz-l5-yNe" secondAttribute="top" constant="34" id="pJy-Xa-itu"/>
+                            <constraint firstItem="EpY-0o-WYB" firstAttribute="leading" secondItem="OTz-l5-yNe" secondAttribute="leading" constant="15" id="qUS-cf-HrI"/>
                             <constraint firstItem="1Dc-HY-tkD" firstAttribute="leading" secondItem="OTz-l5-yNe" secondAttribute="leading" constant="81" id="yT1-a5-KtO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OTz-l5-yNe"/>
@@ -658,6 +681,7 @@
                     <connections>
                         <outlet property="FailsLabel" destination="XMn-V4-eKF" id="rei-zy-8x2"/>
                         <outlet property="GameModeSegmentedControl" destination="Wwj-5G-fHE" id="O2g-1b-c2O"/>
+                        <outlet property="TableView" destination="EpY-0o-WYB" id="2yv-hE-3Xy"/>
                         <outlet property="WinsLabel" destination="Az7-Dw-wNV" id="QVk-I4-bhs"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToTheGameSegue" id="7Rn-df-cVN"/>
                     </connections>
