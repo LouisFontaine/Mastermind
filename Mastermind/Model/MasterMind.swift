@@ -113,12 +113,7 @@ class MasterMind : Codable {
             var nbBlueEvaluate = 0
             var nbRedEvaluate = 0
             
-            var nbPurpleInGoodPlace = 0
-            var nbPinkInGoodPlace = 0
-            var nbYellowInGoodPlace = 0
-            var nbGreenInGoodPlace = 0
-            var nbBlueInGoodPlace = 0
-            var nbRedInGoodPlace = 0
+            self.goodPlaces[actualLevel] = 0
             
             for i in 0..<Constant.NB_OF_CELLS {
                 // Starting by evaluate the number of each color in the solution
@@ -165,94 +160,42 @@ class MasterMind : Codable {
                
                 // Then evaluate the number of cells wich have the good color and the good place in the userLine to evaluate
                 if game.board[(actualLevel * Constant.NB_OF_CELLS) + i] == solution[i] {
-                    nbPurpleInGoodPlace += 1
+                    self.goodPlaces[actualLevel] += 1
                 }
                 else if game.board[(actualLevel * Constant.NB_OF_CELLS) + i] == solution[i] {
-                    nbPinkInGoodPlace += 1
+                    self.goodPlaces[actualLevel] += 1
                 }
                 else if game.board[(actualLevel * Constant.NB_OF_CELLS) + i] == solution[i] {
-                    nbYellowInGoodPlace += 1
+                    self.goodPlaces[actualLevel] += 1
                 }
                 else if game.board[(actualLevel * Constant.NB_OF_CELLS) + i] == solution[i] {
-                    nbGreenInGoodPlace += 1
+                    self.goodPlaces[actualLevel] += 1
                 }
                 else if game.board[(actualLevel * Constant.NB_OF_CELLS) + i] == solution[i] {
-                    nbBlueInGoodPlace += 1
+                    self.goodPlaces[actualLevel] += 1
                 }
                 else if game.board[(actualLevel * Constant.NB_OF_CELLS) + i] == solution[i] {
-                    nbRedInGoodPlace += 1
+                    self.goodPlaces[actualLevel] += 1
                 }
             }
             
-            // Calculate the number of cell with the good colors and the right places
-            goodPlaces[actualLevel] += (nbPurpleInGoodPlace + nbPinkInGoodPlace + nbYellowInGoodPlace + nbGreenInGoodPlace + nbBlueInGoodPlace + nbRedInGoodPlace)
+            // Calculate the number of cell with the good colors and the wrong place
+            goodColors[actualLevel] += min(nbPurpleSolution, nbPurpleEvaluate)
+            goodColors[actualLevel] += min(nbPinkSolution, nbPinkEvaluate)
+            goodColors[actualLevel] += min(nbYellowSolution, nbYellowEvaluate)
+            goodColors[actualLevel] += min(nbGreenSolution, nbGreenEvaluate)
+            goodColors[actualLevel] += min(nbBlueSolution, nbBlueEvaluate)
+            goodColors[actualLevel] += min(nbRedSolution, nbRedEvaluate)
+            goodColors[actualLevel] -= goodPlaces[actualLevel]
             
-            // Declare if the game is win or loose
             if goodPlaces[actualLevel] == Constant.NB_OF_CELLS {
-                gamingState = gameState.WON
-                wins += 1
+                self.gamingState = gameState.WON
+                self.wins += 1
             }
-            else if goodPlaces[actualLevel] < Constant.NB_OF_CELLS && actualLevel == 7 {
-                gamingState = gameState.LOST
-                looses += 1
+            else if actualLevel >= Constant.NB_OF_ATEMPTS {
+                self.gamingState = gameState.LOST
+                self.looses += 1
             }
-            
-            // Calculate the number of cell with the right color but at the wrong place
-            var nbPurpleGoodColorWrongPlace = 0
-            if nbPurpleEvaluate > nbPurpleSolution {
-                nbPurpleGoodColorWrongPlace = nbPurpleSolution
-            }
-            else {
-                nbPurpleGoodColorWrongPlace = nbPurpleEvaluate
-            }
-            nbPurpleGoodColorWrongPlace -= nbPurpleInGoodPlace
-            
-            var nbPinkGoodColorWrongPlace = 0
-            if nbPinkEvaluate > nbPinkSolution {
-                nbPinkGoodColorWrongPlace = nbPinkSolution
-            }
-            else {
-                nbPinkGoodColorWrongPlace = nbPinkEvaluate
-            }
-            nbPinkGoodColorWrongPlace -= nbPinkInGoodPlace
-            
-            var nbYellowGoodColorWrongPlace = 0
-            if nbYellowEvaluate > nbYellowSolution {
-                nbYellowGoodColorWrongPlace = nbYellowSolution
-            }
-            else {
-                nbYellowGoodColorWrongPlace = nbYellowEvaluate
-            }
-            nbYellowGoodColorWrongPlace -= nbYellowInGoodPlace
-            
-            var nbGreenGoodColorWrongPlace = 0
-            if nbGreenEvaluate > nbGreenSolution {
-                nbGreenGoodColorWrongPlace = nbGreenSolution
-            }
-            else {
-                nbGreenGoodColorWrongPlace = nbGreenEvaluate
-            }
-            nbGreenGoodColorWrongPlace -= nbGreenInGoodPlace
-            
-            var nbBlueGoodColorWrongPlace = 0
-            if nbPurpleEvaluate > nbBlueSolution {
-                nbBlueGoodColorWrongPlace = nbBlueSolution
-            }
-            else {
-                nbBlueGoodColorWrongPlace = nbBlueEvaluate
-            }
-            nbBlueGoodColorWrongPlace -= nbBlueInGoodPlace
-            
-            var nbRedGoodColorWrongPlace = 0
-            if nbRedEvaluate > nbRedSolution {
-                nbRedGoodColorWrongPlace = nbRedSolution
-            }
-            else {
-                nbRedGoodColorWrongPlace = nbRedEvaluate
-            }
-            nbRedGoodColorWrongPlace -= nbRedInGoodPlace
-            
-            goodColors[actualLevel] += nbPurpleGoodColorWrongPlace + nbPinkGoodColorWrongPlace + nbYellowGoodColorWrongPlace + nbGreenGoodColorWrongPlace + nbBlueGoodColorWrongPlace + nbRedGoodColorWrongPlace
             
             actualLevel += 1
             actualCell = 0
